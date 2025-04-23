@@ -1,0 +1,56 @@
+CREATE TABLE USUARIO (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    login VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE GERENTE (
+    usuario_id INT PRIMARY KEY REFERENCES USUARIO(id)
+);
+
+CREATE TABLE FUNCIONARIO (
+    usuario_id INT PRIMARY KEY REFERENCES USUARIO(id)
+);
+
+CREATE TABLE FORNECEDOR (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    contato VARCHAR(100),
+    gerente_id INT REFERENCES GERENTE(usuario_id)
+);
+
+CREATE TABLE PRODUTO (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    quantidade INT NOT NULL,
+    fornecedor_id INT REFERENCES FORNECEDOR(id)
+);
+
+CREATE TABLE ESTOQUE (
+    produto_id INT PRIMARY KEY REFERENCES PRODUTO(id),
+    quantidade_atual INT NOT NULL
+);
+
+CREATE TABLE VENDA (
+    id SERIAL PRIMARY KEY,
+    data DATE NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    funcionario_id INT REFERENCES FUNCIONARIO(usuario_id)
+);
+
+CREATE TABLE ITEM_VENDA (
+    venda_id INT REFERENCES VENDA(id),
+    produto_id INT REFERENCES PRODUTO(id),
+    quantidade INT NOT NULL,
+    subtotal DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (venda_id, produto_id)
+);
+
+CREATE TABLE PAGAMENTO (
+    id SERIAL PRIMARY KEY,
+    valor DECIMAL(10, 2) NOT NULL,
+    metodo VARCHAR(50) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    venda_id INT UNIQUE REFERENCES VENDA(id)
+);
