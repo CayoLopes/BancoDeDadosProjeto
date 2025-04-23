@@ -1,0 +1,2 @@
+- [Esquema relacional](create_script.sql)
+- [Dados iniciais](inserts_script.sql)
