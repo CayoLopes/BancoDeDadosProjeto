@@ -6,6 +6,16 @@ Sua principal finalidade é atualizar, de forma automática, o campo `quantidade
 
 A utilização de *triggers* como essa promove maior confiabilidade no sistema de gerenciamento, além de contribuir para a automatização de processos essenciais à gestão de suprimentos.
 
+```sql
+CREATE TRIGGER atualizar_estoque_apos_entrada
+AFTER INSERT ON entrada_entrada
+BEGIN
+  UPDATE produtos_produtos
+  SET quantidade = quantidade + NEW.quantidade
+  WHERE id = NEW.produto_id;
+END;
+
+```
 
 
 
@@ -15,3 +25,14 @@ A utilização de *triggers* como essa promove maior confiabilidade no sistema d
 A trigger `atualizar_data_ultima_entrada` é acionada automaticamente após a inserção de uma nova entrada de produto na tabela `entrada_entrada`. Seu propósito é registrar, na descrição do produto correspondente, a data da última movimentação de entrada.
 
 Embora a descrição do produto não seja um campo ideal para esse tipo de dado em sistemas robustos (onde um campo específico como `ultima_entrada` seria mais apropriado), essa solução demonstra, de maneira funcional, a capacidade de automatizar atualizações de metadados diretamente a partir de operações transacionais. Assim, reforça-se a rastreabilidade das movimentações de estoque no banco de dados.
+
+```sql
+  CREATE TRIGGER atualizar_data_ultima_entrada
+AFTER INSERT ON entrada_entrada
+BEGIN
+  UPDATE produtos_produtos
+  SET descricao = 'Última entrada em: ' || NEW.data_entrada
+  WHERE id = NEW.produto_id;
+END;
+
+```
