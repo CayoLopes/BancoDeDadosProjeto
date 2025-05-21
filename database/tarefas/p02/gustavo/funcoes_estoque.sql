@@ -17,3 +17,13 @@ EXCEPTION
 END;
 $$ LANGUAGE plpgsql;
 
+-- Função 2: Calcular valor total do estoque
+CREATE OR REPLACE FUNCTION calcular_valor_total_estoque()
+RETURNS DECIMAL(10,2) AS $$
+BEGIN
+    RETURN (
+        SELECT COALESCE(SUM(preco * quantidade), 0)
+        FROM produto
+    );
+END;
+$$ LANGUAGE plpgsql;
