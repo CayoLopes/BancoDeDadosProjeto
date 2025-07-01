@@ -13,7 +13,7 @@ Este projeto realiza análise dos dados orçamentários da Secretaria Municipal 
 
 ```bash
 git clone https://github.com/CayoLopes/BancoDeDadosProjeto
-cd BancoDeDadosProjeto/duckdb
+cd BancoDeDadosProjeto/duckdb/python_duckdb
 ```
 
 2.Crie um ambiente virtual (opcional, mas recomendado):
