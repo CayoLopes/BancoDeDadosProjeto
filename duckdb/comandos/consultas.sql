@@ -5,11 +5,12 @@ SELECT * FROM read_csv_auto('https://raw.githubusercontent.com/CayoLopes/BancoDe
 -- Meses com mais gastos
 SELECT
   strftime(data_empenho, '%Y-%m') AS mes,
-  SUM(valor_empenho) AS total_empenhado
+  printf('R$ %0.2f', SUM(valor_empenho)) AS total_empenhado
 FROM despesas
 GROUP BY mes
-ORDER BY total_empenhado DESC
+ORDER BY SUM(valor_empenho) DESC
 LIMIT 5;
+
 
 -- Ordem de despesas nos orgão análisados 
 SELECT 
