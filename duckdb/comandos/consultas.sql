@@ -1,6 +1,6 @@
 -- Cria tabela e importa os dados 
 CREATE TABLE despesas AS 
-SELECT * FROM read_csv_auto('https://raw.githubusercontent.com/CayoLopes/BancoDeDadosProjeto/main/duckdb/despesas.csv');
+SELECT * FROM read_csv_auto('https://raw.githubusercontent.com/CayoLopes/BancoDeDadosProjeto/main/duckdb/dados/despesas.csv');
 
 -- Meses com mais gastos
 SELECT
